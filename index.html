@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Hangman</title>
+    <link rel="stylesheet" href="./static/style.css">
+</head>
+<body>
+    <div class="header">
+        <div class="hangman">Hangman</div>
+    </div>
+    <div class="hangman-img">
+        <img src="{{ .Game.Image }}">
+    </div>
+    <div class="container">
+        <div class="word">{{ .Game.DisplayWord }}</div>
+        <div class="attempts">You have {{ .Game.Attempts }} attempts remaining</div>
+        <form method="post">
+            <div class="square">
+                <input type="text" class="letter-input" name="letter" placeholder="Choose a letter">
+            </div>
+            <div class="button-container">
+                <input type="submit" class="submit-button" value="Submit">
+            </div>
+        </form>
+        {{ if .Game.GameOver }}
+        <div class="game-result {{ if eq .Game.GameResult "You lost!" }} lost {{ else }} won {{ end }}">{{ .Game.GameResult }}</div>
+        <form method="post" action="/replay">
+            <div class="button-container">
+                <input type="submit" class="replay-button" value="Rejouer">
+            </div>
+        </form>
+    {{ end }}
+    </div>
+</body>
+</html>
